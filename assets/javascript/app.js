@@ -28,5 +28,62 @@ $("#submit").click(function(event) {
 });
 
 
+//Eventful Info
+
+var apikey = "Tj5Zg74QCVP6c9xQ"; 
+var date;
+var where;
+
+function getEvents()
+
+{
+
+   var oArgs = {
+
+      app_key: apikey,
+
+    //  q: "music",
+
+      where: where, 
+
+      date: date,
+
+      within: "25 miles",
+
+      page_size: 5,
+
+      sort_order: "popularity",
+
+   };
+
+   EVDB.API.call("/events/search", oArgs, function(oData) {
+      console.log(oData);
+
+      console.log(oData.events.event[0].title);
+      console.log(oData.events.event[0].venue_name);
+
+      
+        
+
+      
+
+      $("#locate").text(oData.events.event[0].title);
+      $("#locate").append("<img src=" + oData.events.event[0].image.medium.url + ">");     
+      // Note: this relies on the custom toString() methods below
+
+  });
+
+};
+
+
+$("#submit-button").on("click", function(){
+
+  event.preventDefault();
+
+  where = $("#where").val().trim();
+  date = $("#when").val().trim();
+getEvents()
+
+});
 
 
