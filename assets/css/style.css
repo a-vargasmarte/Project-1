@@ -35,10 +35,52 @@
 	padding-top: 20px;
 }
 
-.btn {
+#submit {
 	float: right;
 }
 
 #zipcode {
 	margin-right: 30px;
+}
+
+#date {
+	margin-right: 30px;
+}
+
+#dropdownMenuButton {
+	width: 70px;
+}
+
+a:active {
+	text-decoration: underline;
+}
+
+.jumbotron {
+	background-color: #1e62f4; /* Orange */
+	color: #ffffff;
+	padding: 25px 25px;
+	text-align: center;
+}
+.bg-grey {
+	background-color: #f6f6f6;
+	padding: 20px 50px;
+}
+
+.logo {
+	font-size: 200px;
+}
+
+@media screen and (max-width: 768px) {
+.col-sm-4 {
+text-align: center;
+margin: 25px 0;
+	}
+.col-sm-3 {
+	text-align: center;
+	margin: 25px 0;
+}
+}
+
+#ourTeam {
+	margin-top: 50px;
 }
