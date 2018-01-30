@@ -25,88 +25,75 @@
   <!-- Firebase Reference -->
   <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
-<nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">NIGHT OUT</a>
-      </div>
+  <!--Header and start of container-->
+  <div class="container">
+   <nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <a class="navbar-brand">NIGHT OUT</a>
+    </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Plan Your Outing</a></li>
-          <li><a href="#">About Us</a></li>
+          <li><a href="index.html">Plan Your Outing</a></li>
+          <li><a href="about.html">About Us</a></li>
         </ul>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- Creat an Input Form Here-->
-  <div class="container">
+  <!--User inputs data here-->
     <div class="row">
-      <div class="col-md-6">
-      
-          <label for="zip-input">Zip Code</label>
-            <input class="form-control" id="Zip-input" type="text">
-          <br>
-          
-          <label for="date-input">Date</label>
-            <input class="form-control" id="Date-input" type="text">
-          <br>
-       
-       <!--Pick AM or PM-->
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">AM</label>
+      <div class="col-lg-12">
+          <div id="inputForm" class="jumbotron">
+              <form class="form-inline" action="/action_page.php">
+                <div class="form-group">
+                  <label for="zip">Zipcode:</label>
+                  <input type="zipcode" class="form-control" id="zipcode" placeholder="Enter Zipcode" name="zipcode">
+                </div>
+                <div class="form-group">
+                  <label for="date">Date:</label>
+                  <input name="Date" class="form-control" id="date" placeholder="Enter Date">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+              </form>
           </div>
-          
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-          <label class="form-check-label" for="inlineCheckbox2">PM</label>
-          </div>
-
-          <br>
-          <label for="cuisine-input">Cuisine</label>
-          <input class="form-control" id="cuisine-input" type="text">
-          <br>
-          <label for="budget-input">Budget</label>
-          <input class="form-control" id="budget-input" type="text">
-
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-          <label class="form-check-label" for="inlineCheckbox1">$</label>
-          </div>
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-          <label class="form-check-label" for="inlineCheckbox2">$$</label>
-          </div>
-          <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-          <label class="form-check-label" for="inlineCheckbox2">$$$</label>
-          </div>
-
-      <!-- Submit Button -->
-      <button id="click-button" type="submit">Submit</button>
-    </div>
-    
-    <div col="col-md-6">
-      
-
+      </div>
     </div>
 
+  <!-- Results are shown -->
+  <div id="resultArea">
+    <div class="row">
+      <div class="col-md-4">
+          <div id="resultOne" class="jumbotron"></div>
+      </div>
+      <div class="col-md-4">
+        <div id="resultTwo" class="jumbotron"></div>
+      </div>
+      <div class="col-md-4">
+        <div id="resultThree" class="jumbotron"></div>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="footer">Copyright &copy 2018</div>
 
-      <hr>
-
-  <!-- Displayed Output -->
-  <div id="displayed-output">
-
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron"></div>
+    </div>
+  </div>
 
   </div>
 
+
+
+
+  
 
 </body>
-
 </html>
