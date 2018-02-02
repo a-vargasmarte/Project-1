@@ -105,17 +105,23 @@ function getEvents()
 
       // we create our header with relevant classes
       let preloadHeader = $("<h2>Loading your weekend!</h2>").attr({
-        class: "header center orange-text toRemove",
+        class: "header center orange-text",
       });
 
       preloadHeaderDiv.append(preloadHeader);
 
-      $("#formDiv").replaceWith(preloadHeader);
+      // now we generate a div of class row
+      // to be appended to dynamic div
+      let loadingRow = $("<div>").attr("class", "row center");
+      $("#dynamicDiv").append(loadingRow);
+      
+      // and we append our preloadHeader to our loadingRow
+      loadingRow.append(preloadHeader);
 
       // we dynamically create a .progress div
-      let progressDiv = $("<div>").attr("class", "progress toRemove").append("<h2>Loading your weekend!</h2");
+      let progressDiv = $("<div>").attr("class", "progress").append("<h2>Loading your weekend!</h2");
       // this .progressDiv contains an .indeterminate div
-      let indeterminateDiv = $("<div>").attr("class", "indeterminate toRemove");
+      let indeterminateDiv = $("<div>").attr("class", "indeterminate");
       
 
       // we append indeterminateDiv to progressDiv
@@ -126,42 +132,30 @@ function getEvents()
 
       // we declare a function that empties #dynamicDiv
       let emptyLoading = function(){
-        $(".toRemove").remove();
-        // then we initialize this container with jQuery
-        $(document).ready(function(){
-          $('.carousel').carousel();
-        });
+        // $(".toRemove").remove();
+        let determinateDiv = $("<div>").attr("class", "determinate");
+        indeterminateDiv.replaceWith(determinateDiv);
         // and we apppend our carouselDiv to our dynamicDiv
-        $("#globalContainer").append(carouselContainer);
+        $("#globalContainer").append(cardDiv);
       }
-      // we dynamically generate a carousel div
-      let carouselContainer = $("<div>");
-      let carouselDiv = $("<div>");
+      // we dynamically generate a card div with class row
+      let cardDiv = $("<div>").attr("class", "row");
+      // we append a div of class "col s12 m2"
+      emptyColumn = $("<div>").attr("class", "col s12 m3");
+      cardDiv.append(emptyColumn);
 
-      // we set materialize attributes
-      carouselDiv.attr({
-        class: "carousel carousel-slider center",
-        "data-indicators": "true",
-      });
+      // we create a cardColum where our cards will live
+      let cardColumn = $("<div>").attr("class", "col s12 m6");
+      cardDiv.append(cardColumn);
 
-      // we now create a div containing a button for our carousel
-      // we add attributes and append an a tag in the same line
-      let carouselFixed = $("<div>");
-      let carouselButton = $("<a>").attr({
-        class: "btn waves-effect white grey-text darken-text-2",
-        id: "carouselButton"
-      }).text("Learn more");
-      // we add its attributes
-      carouselFixed.attr("class", "carousel-fixed-item center").append(carouselButton);
-      
-      // now we append our carouselFixed and panels to our carouselDiv
-      carouselDiv.append(carouselFixed);
-
-      carouselContainer.append(carouselDiv);
+      // more specifically,they will live in this cardRow
+      let cardRow = $("<div>").attr("class", "row");
+      // append this cardRow to cardDiv
+      cardColumn.append(cardRow);
 
       setTimeout(emptyLoading, 3500);
-      // // With the carouselFixed appended to carouselDiv, we create panel slides dynamically
-      // We loop over each index of eventsArray to create and populate panels with headings and p tags
+
+      // We loop over each index of eventsArray to create and style cards
       // these will hold event names, times, and other relevant info
       // for each event of the eventsArray...  
       for (let i = 0; i < eventsArray.length; ++i){
@@ -169,42 +163,49 @@ function getEvents()
         console.log(panelColors[i]);
         // create conditions
         
-        // generate a panelDiv with carousel-relevant attributes,
-        panelDiv = $("<div>").attr({
-          "class": "carousel-item white-text",
-          href: panelRefs[i]
+        // generate a card placeholder Div with relevant attributes,
+        let cardPlace = $("<div>").attr({
+          "class": "col s12 m6",
+          id: "cardPlace"
         });
 
-        panelDiv.addClass(panelColors[i]);
+        // generate a card div of class card
+        let card = $("<div>").attr("class", "card");
+        // add color corresponding to the panelColors array
+        card.addClass(panelColors[i]);
 
-        // $("#carouselButton").attr("href", eventsArray[i].)
+        cardPlace.append(card);
+        // we generate a div of class card-content and white-text
+        let cardContent = $("<div>").attr("class", "card-content white-text");
+        card.append(cardContent);        
+        // next we generate our span with class card-title
+        let spanTitle = $("<span>").attr("class", "card-title").text("Working title");
+        cardContent.append(spanTitle);
+        // we append a paragraph to this title
+        let spanParagraph = $("<p>").text("Working paragraph");
+        spanTitle.append(spanParagraph);
 
-        // we create some cool headings and paragraphs
-        // the event title
-        let panelTitle = $("<h1>" + eventsArray[i].title + "</h1>" );
-        // the event city
-        let panelText = $("<h2>" + eventsArray[i].city_name + "</h2>");
-        // the event start time...
-        let eventStartTime = $("<h3> Starts at: " + eventsArray[i].start_time.substring(11) + "</h3>");
-        
-        // a learn more button that takes the user to the event url
-        let learnMore = $("<button>").attr({
-          class: "btn waves-effect waves-light",
-          type: "submit",
-          name: "action",
-        }).text("Learn more");
-
-        let eventLink = $("<a>").attr({
+        // we generate a .card-action Div 
+        let cardAction = $("<div>").attr("class", "card-action");
+        // we generate a link and append to cardAction
+        let cardLink = $("<a>").attr({
           "href": eventsArray[i].url,
-          target: "_blank"}).text("Link to the event!");
+          target: "_blank"}).text("Link to the event!");;
 
-        // learnMore.append(eventLink);
+        // we append cardAction to card and cardLink to cardAction
+        card.append(cardAction);
+        cardAction.append(cardLink);
 
-        // append these to our panelDiv
-        panelDiv.append(panelTitle, panelText, eventStartTime);
+        cardRow.append(cardPlace);
 
-        // append panelDiv to carouselDiv
-        carouselDiv.append(panelDiv);
+        // // we create some cool headings and paragraphs
+        // // the event title
+        // let panelTitle = $("<h1>" + eventsArray[i].title + "</h1>" );
+        // // the event city
+        // let panelText = $("<h2>" + eventsArray[i].city_name + "</h2>");
+        // // the event start time...
+        // let eventStartTime = $("<h3> Starts at: " + eventsArray[i].start_time.substring(11) + "</h3>");
+
       }           
     });
 }
