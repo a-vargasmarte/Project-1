@@ -39,75 +39,81 @@
 
 <body>
   <div id="globalContainer">
-  <!-- my navbar lives here -->
-  <div id="navBar" class="block blue">
-  
-    <nav class="light-blue lighten-1" role="navigation">
-      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">w.e.Plan</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="#">Navbar Link</a></li>
-        </ul>
-  
-        <ul id="nav-mobile" class="side-nav">
-          <li><a href="#">Navbar Link</a></li>
-        </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-      </div>
-    </nav>
-  </div>
-
-  <!-- my main container lives here -->
-
-  <div class="section no-pad-bot" id="mainContainer">
-    <!-- my banner lives here -->
-    <div class="container" id="index-banner">
-      <h1 class="header center orange-text">w.e.Plan</h1>
+    <!-- my navbar lives here -->
+    <div id="navBar" class="block blue">
+    
+      <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">w.e.Plan</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#">Navbar Link</a></li>
+          </ul>
+    
+          <ul id="nav-mobile" class="side-nav">
+            <li><a href="#">Navbar Link</a></li>
+          </ul>
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
     </div>
-    <!-- my dynamic div lives here. -->
-    <div class="section" id="dynamicDiv">
-      <!--   a brief description of how the app works lives here   -->
-      <div class="row center">
-        <div class="col s12 m2"></div>
-            
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-            <h5 class="center">Speeds up development</h5>
 
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
-          </div>
-        </div>
+    <!-- my main container lives here -->
 
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">User Experience Focused</h5>
-
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m2"></div>
+    <div class="section no-pad-bot" id="mainContainer">
+      <!-- my banner lives here -->
+      <div class="container" id="index-banner">
+        <h1 class="header center orange-text">w.e.Plan</h1>
       </div>
-      <!-- form row -->
-      <div class= "row center" id="formDiv">
-        <form class= "col s12">
-          <div class="col s12">
-            <!-- my inline input field lives here! -->
-            <div class="input-field inline">
-              <input placeholder="e.g. 27519" type="text" class="validate" id="userInput">
-              <label for="zipcode">Enter your zipcode below!</label>
+      <!-- my dynamic div lives here. -->
+      <div class="section" id="dynamicDiv">
+        <!--   a brief description of how the app works lives here   -->
+        <div class="row center">
+          <div class="col s12 m2"></div>
+              
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+              <h5 class="center">Speeds up development</h5>
+
+              <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
             </div>
           </div>
-        </form>
-        <!-- My button lives here -->
-        <button class="btn waves-effect waves-light" type="submit" name="action" id="submit-button">Submit
-          <i class="material-icons right">send</i>
-        </button>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+              <h5 class="center">User Experience Focused</h5>
+
+              <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+            </div>
+          </div>
+
+          <div class="col s12 m2"></div>
+        </div>
+        <!-- form row -->
+        <div class= "row center" id="formDiv">
+          <form class= "col s12">
+            <div class="col s12">
+              <!-- my inline input field lives here! -->
+              <div class="input-field inline">
+                <input placeholder="e.g. 27519" type="text" class="validate" id="userInput">
+                <label for="zipcode">Enter your zipcode below!</label>
+              </div>
+            </div>
+          </form>
+          <!-- My button lives here -->
+          <button class="btn waves-effect waves-light" type="submit" name="action" id="submit-button">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</div>  
+    <div class="row" id="#card-div">
+      <div class="col s12 m3"></div>
+      <div class="col s12 m6" id="cardColumn">
+        <div class="row" id="cardRow"></div>
+      </div>
+    </div>
+  </div>  
 <div id="map"></div> 
 <!--  Scripts-->
 <!--Import jQuery before materialize.js-->
