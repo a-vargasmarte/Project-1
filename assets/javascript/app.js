@@ -49,11 +49,17 @@ let weatherQueryURL;
 
 // $(document).ready(function(){
 
-var apikey = "Tj5Zg74QCVP6c9xQ"; 
-var date;
-var where;
-var what;
-// let eventsArray;
+let apikey = "Tj5Zg74QCVP6c9xQ"; 
+let date;
+let where;
+let what;
+let map;
+let service;
+let infowindow;
+let eventsArray;
+let panelRefs = ["#one!","#two!","#three!", "#four!", "#five!", "#six!", "#seven!", "#eight!", "#nine!", "#ten!"];
+let panelColors = ["red", "amber", "blue", "green", "purple", "orange", "yellow", "pink", "indigo", "cyan"];
+
 
 function getEvents()
 
@@ -83,162 +89,167 @@ function getEvents()
       console.log(oData);
 
       // we declare an array eventsArray that contains the array of events returned from eventful
-      let eventsArray = oData.events.event;
-      
+      eventsArray = oData.events.event;
+      console.log(eventsArray);
+      console.log(eventsArray[0].latitude + "," + eventsArray[0].longitude);
       // we use jQuery on the events!
       
+      // we create a div containing a header for our preloader
+      // we also give it attributes
+      let preloadHeaderDiv = $("<div>").attr({
+        class: "container",
+        id: "index-banner"
+      });
+
+      // we create our header with relevant classes
+      let preloadHeader = $("<h2>Loading your weekend!</h2>").attr({
+        class: "header center orange-text toRemove",
+      });
+
+      preloadHeaderDiv.append(preloadHeader);
+
+      $("#formDiv").replaceWith(preloadHeader);
+
+      // we dynamically create a .progress div
+      let progressDiv = $("<div>").attr("class", "progress toRemove").append("<h2>Loading your weekend!</h2");
+      // this .progressDiv contains an .indeterminate div
+      let indeterminateDiv = $("<div>").attr("class", "indeterminate toRemove");
+      
+
+      // we append indeterminateDiv to progressDiv
+      progressDiv.append(indeterminateDiv);
+
+      // then we append to #globalContainer
+      $("#dynamicDiv").append(progressDiv);
+
+      // we declare a function that empties #dynamicDiv
+      let emptyLoading = function(){
+        $(".toRemove").remove();
+        // then we initialize this container with jQuery
+        $(document).ready(function(){
+          $('.carousel').carousel();
+        });
+        // and we apppend our carouselDiv to our dynamicDiv
+        $("#globalContainer").append(carouselContainer);
+      }
       // we dynamically generate a carousel div
+      let carouselContainer = $("<div>");
       let carouselDiv = $("<div>");
 
-      // we activate via the bootstrap carousel attributes
+      // we set materialize attributes
       carouselDiv.attr({
-        class: "carousel slide",
-        id: "myCarousel",
-        "data-ride": "carousel"
+        class: "carousel carousel-slider center",
+        "data-indicators": "true",
       });
 
-      // we append this carouselDiv to #carouselRow
-      $("#carouselRow").append(carouselDiv);
-
-      // we now create and ordered list of carousel indicators
-      let carouselIndicators = $("<ol>").attr("class", "carousel-indicators");
-
-      // we create our active list tag
-      activeListImg = $("<li>").attr({
-        "data-target": "#myCarousel",
-        "data-slide-to": "0"
-      });
-
-      // and then we append this activeListImg to carouselIndicators
-      carouselIndicators.append(activeListImg);
-
-      // and append our indicators to carouselDiv
-      carouselDiv.append(carouselIndicators);
-
-      // now we create our wrapper for slides
-
-      // starting with a div with carousel-inner class
-      let carouselInner = $("<div>").attr("class", "carousel-inner");
-
-      // continuing with another div of class "item active"
-      let activeItem = $("<div>").attr("class", "item active");
-
-      // following with creating an image tag and attributes
-      let activeImg = $("<img>").attr({
-        src: eventsArray[0].image.medium.url,
-        alt: "Event Image"
-      });
-
-      // now we create a div with our caption
-      let activeCaption = $("<div>").attr("class", "carousel-caption").html("<h3>" + eventsArray[0].title + "</h3>" + "<h3>" + eventsArray[0].city_name + "</h3>");
-
-      // we now append our image and caption to our .item active
-      activeItem.append(activeImg, activeCaption);
-
-      // and we append activeItem to carouselInner
-      carouselInner.append(activeItem);
-
-      // we then append carouselInner to carouselDiv
-      carouselDiv.append(carouselInner);
-
-      // we now add our left and right controls
+      // we now create a div containing a button for our carousel
+      // we add attributes and append an a tag in the same line
+      let carouselFixed = $("<div>");
+      let carouselButton = $("<a>").attr({
+        class: "btn waves-effect white grey-text darken-text-2",
+        id: "carouselButton"
+      }).text("Learn more");
+      // we add its attributes
+      carouselFixed.attr("class", "carousel-fixed-item center").append(carouselButton);
       
-      // first to our left...
-      let leftControl = $("<a>").attr({
-        class: "left carousel-control",
-        href: "#myCarousel",
-        "data-slide": "prev"
-      });
+      // now we append our carouselFixed and panels to our carouselDiv
+      carouselDiv.append(carouselFixed);
 
-      // we now create corresponding span classes
-      let leftGlyphicon = $("<span>").attr("class", "glyphicon glyphicon-chevron-left");
-      let leftSpan = $("<span>").attr("class", "sr-only").text("Previous");
+      carouselContainer.append(carouselDiv);
 
-      // append these two spans to leftControl
-      leftControl.append(leftGlyphicon, leftSpan);
-
-      // then to our right
-      let rightControl = $("<a>").attr({
-        class: "right carousel-control",
-        href: "#myCarousel",
-        "data-slide": "next"
-      });
-
-      // we now create span elements corresponding to our rightControl
-      let rightGlyphicon = $("<span>").attr("class", "glyphicon glyphicon-chevron-right");
-      let rightSpan = $("<span>").attr("class", "sr-only").text("Next");
-      // append these two spans to rightControl
-
-      rightControl.append(rightGlyphicon, rightSpan);
-
-      // and we append our left and right controls to carouselDiv
-      carouselDiv.append(leftControl, rightControl);
-
-      // With the first event appended to the carousel, we follow with each subsequent one
-      // We loop over each index of eventsArray (starting from index 1) 
-      // to populate .carousel-indicators and .carousel-inner divs
+      setTimeout(emptyLoading, 3500);
+      // // With the carouselFixed appended to carouselDiv, we create panel slides dynamically
+      // We loop over each index of eventsArray to create and populate panels with headings and p tags
+      // these will hold event names, times, and other relevant info
       // for each event of the eventsArray...  
-      for (let i = 1; i < eventsArray.length; ++i){
+      for (let i = 0; i < eventsArray.length; ++i){
         console.log(eventsArray[i]);
-        
+        console.log(panelColors[i]);
         // create conditions
         
-        // generate a list tag with carousel-relevant attributes,
-        eventIndex = $("<li>").attr({
-          "data-target": "#myCarousel",
-          "data-slide-to": i
+        // generate a panelDiv with carousel-relevant attributes,
+        panelDiv = $("<div>").attr({
+          "class": "carousel-item white-text",
+          href: panelRefs[i]
         });
 
-        // append eventIndex[i] to carouselIndicators
-        carouselIndicators.append(eventIndex);
+        panelDiv.addClass(panelColors[i]);
 
-        // generate a div with class "item"
-        let itemDiv = $("<div>").attr("class", "item");
+        // $("#carouselButton").attr("href", eventsArray[i].)
 
-        // then we create our image
-        let eventImg = $("<img>")
-        
-        // if we do not have an image property...
-        if (!eventsArray[i].image) {
-          // then we assign a placeholder as a url
-          eventImg.attr({
-            src: "http://via.placeholder.com/200",
-            alt: "Placeholder Image"
-          }); 
-        }
-        else {
-          // then generate an image tag that points to its medium URL
-          eventImg = $("<img>").attr({
-            src: eventsArray[i].image.medium.url,
-            alt: "Event Image"
-          });
-        }
-        // next we generate a div with class "carousel-option"
-        let carouselCaption = $("<div>").attr("class", "carousel-caption");
-        
-        // we create some cool headers
+        // we create some cool headings and paragraphs
         // the event title
-        let titleHeader = $("<h4>" + eventsArray[i].title + "</h4>" );
+        let panelTitle = $("<h1>" + eventsArray[i].title + "</h1>" );
         // the event city
-        let cityHeader = $("<h4>" + eventsArray[i].city_name + "</h4>");
+        let panelText = $("<h2>" + eventsArray[i].city_name + "</h2>");
         // the event start time...
-        let eventStartTime = $("<h5> Starts at: " + eventsArray[i].start_time.substring(11) + "</h5>");
-
-        // then we assign the event title as a <h3> tag using the .html() method
-        carouselCaption.append(titleHeader, cityHeader, eventStartTime);
+        let eventStartTime = $("<h3> Starts at: " + eventsArray[i].start_time.substring(11) + "</h3>");
         
+        // a learn more button that takes the user to the event url
+        let learnMore = $("<button>").attr({
+          class: "btn waves-effect waves-light",
+          type: "submit",
+          name: "action",
+        }).text("Learn more");
 
-        // then we assign the city_name property of eventsArray
-        // carousel
-      
-        // next we append our eventImg and carouselCaption to our itemDiv
-        itemDiv.append(eventImg, carouselCaption);
+        let eventLink = $("<a>").attr({
+          "href": eventsArray[i].url,
+          target: "_blank"}).text("Link to the event!");
 
-        // finally we append our itemDiv to our carouselInner
-        carouselInner.append(itemDiv);
+        // learnMore.append(eventLink);
+
+        // append these to our panelDiv
+        panelDiv.append(panelTitle, panelText, eventStartTime);
+
+        // append panelDiv to carouselDiv
+        carouselDiv.append(panelDiv);
       }           
     });
 }
+
+function initMap() {
+  var pyrmont = ({lat: -33.867, lng: 151.195});
+
+  map = new google.maps.Map(document.getElementById('map'), {
+      center: pyrmont,
+      zoom: 15
+    });
+
+  var request = {
+    location: pyrmont,
+    radius: '500',
+    type: ['restaurant']
+  };
+
+  service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, callback);
+
+
+  function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        var place = results[i];
+        console.log(place);
+        createMarker(results[i]);
+      }
+    }
+  } 
+
+  function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    });
+  }
+}
+
+
 
 // when the user clicks on #submit-button
 $("#submit-button").on("click", function(event){
@@ -247,14 +258,18 @@ $("#submit-button").on("click", function(event){
   event.preventDefault();
 
   // we store our inputs in redeclared variables
-  where = $("#where").val().trim();
-  date = $("#when").val().trim();
-  //  what = $("#what").val().trim();
+  where = $("#userInput").val().trim();
+
 
   
+  // then we empty our dynamicDiv
+  // $("#dynamicDiv").empty();
 
   // and with our inputs we invoke our function getEvents
   getEvents();
+  // invoke this function
+  // initMap();
+  
 });
 
 // });
