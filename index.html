@@ -43,9 +43,9 @@
     <div id="navBar" class="block blue">
     
       <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">w.e.Plan</a>
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo center">w.e.Plan</a>
           <ul class="right hide-on-med-and-down">
-            <li><a href="#">Navbar Link</a></li>
+            <!-- <li><a href="#">Navbar Link</a></li> -->
           </ul>
     
           <ul id="nav-mobile" class="side-nav">
@@ -61,7 +61,7 @@
     <div class="section no-pad-bot" id="mainContainer">
       <!-- my banner lives here -->
       <div class="container" id="index-banner">
-        <h1 class="header center orange-text">w.e.Plan</h1>
+        <h2 class="header center orange-text">We help you plan your weekend!</h2>
       </div>
       <!-- my dynamic div lives here. -->
       <div class="section" id="dynamicDiv">
@@ -71,19 +71,19 @@
               
           <div class="col s12 m4">
             <div class="icon-block">
-              <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-              <h5 class="center">Speeds up development</h5>
+              <h2 class="center light-blue-text"><i class="material-icons">location_on</i></h2>
+              <h5 class="center">We find local events</h5>
 
-              <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+              <p class="light">When you submit your zipcode, we request event data from the Eventful API and provide you with a list of the 10 most popular venues within a 25 mile radius. In a few seconds, scroll down and Learn more by visiting each event's Eventful site.</p>
             </div>
           </div>
 
           <div class="col s12 m4">
             <div class="icon-block">
-              <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-              <h5 class="center">User Experience Focused</h5>
+              <h2 class="center light-blue-text"><i class="material-icons">local_pizza</i></h2>
+              <h5 class="center">We find food nearby</h5>
 
-              <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+              <p class="light">We use the same zipcode you provide to give you a map with nearby restaurants by requesting specific data from the Google Maps Places API. Click on the placemarkers for restaurant names. Drop the little Street View dude nearby! It works!</p>
             </div>
           </div>
 
@@ -108,13 +108,38 @@
       </div>
     </div>
     <div class="row" id="#card-div">
-      <div class="col s12 m3"></div>
-      <div class="col s12 m6" id="cardColumn">
+      <div class="col s12 m2"></div>
+      <div class="col s12 m8" id="cardColumn">
         <div class="row" id="cardRow"></div>
       </div>
     </div>
   </div>  
-<div id="map"></div> 
+<div id="map"></div>
+
+<footer class="page-footer orange">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">w.e.Plan</h5>
+        <p class="grey-text text-lighten-4">We're a group of up n' coming web developers. We value and appreciate your support in this and future projects.</p>
+        
+      </div>
+      <div class="col l3 s12">
+        <h5 class="white-text">Connect</h5>
+        <ul>
+          <li><a class="white-text" href="https://github.com/a-vargasmarte" target="_blank">Alberto Vargas</a></li>
+          <li><a class="white-text" href="https://github.com/dvhunt7" target="_blank">Destin Hunt</a></li>
+          <li><a class="white-text" href="https://github.com/afrelier" target="_blank">Alejandro Frelier</a></li>
+          <li><a class="white-text" href="https://github.com/agabriel93" target="_blank">Alexander Gabriel</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+      <a class="white-text" href="https://github.com/a-vargasmarte/Project-1" target="_blank" id="project-github">Project Github Page</a>
+  </div>
+</footer>
+
 <!--  Scripts-->
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

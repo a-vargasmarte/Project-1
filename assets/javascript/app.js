@@ -60,7 +60,7 @@ let map;
 let infowindow;
 let eventsArray;
 let panelRefs = ["#one!","#two!","#three!", "#four!", "#five!", "#six!", "#seven!", "#eight!", "#nine!", "#ten!"];
-let panelColors = ["red", "amber", "blue", "green", "purple", "orange", "yellow", "pink", "indigo", "cyan"];
+let panelColors = ["teal", "purple", "blue", "green", "deep-purple", "light-blue", "blue-grey darken-4", "pink", "indigo", "cyan"];
 
 
 function getEvents()
@@ -75,11 +75,11 @@ function getEvents()
 
       where: where, 
 
-      when: "This weekend",
+      // when: "This weekend",
 
-      date: date,
+      date: "2018020200-2018020400",
 
-      within: "40 miles",
+      within: "25 miles",
 
       page_size: 10,
 
@@ -92,8 +92,8 @@ function getEvents()
 
       // we declare an array eventsArray that contains the array of events returned from eventful
       eventsArray = oData.events.event;
-      console.log(eventsArray);
-      console.log(eventsArray[0].latitude + "," + eventsArray[0].longitude);
+      // console.log(eventsArray);
+      // console.log(eventsArray[0].latitude + "," + eventsArray[0].longitude);
       // we use jQuery on the events!
       
       // we create a div containing a header for our preloader
@@ -141,11 +141,11 @@ function getEvents()
       // we dynamically generate a card div with class row
       let cardDiv = $("<div>").attr("class", "row");
       // we append a div of class "col s12 m2"
-      emptyColumn = $("<div>").attr("class", "col s12 m3");
+      emptyColumn = $("<div>").attr("class", "col s12 m2");
       cardDiv.append(emptyColumn);
 
       // we create a cardColum where our cards will live
-      let cardColumn = $("<div>").attr("class", "col s12 m6");
+      let cardColumn = $("<div>").attr("class", "col s12 m8");
       cardDiv.append(cardColumn);
 
       // more specifically,they will live in this cardRow
@@ -160,7 +160,7 @@ function getEvents()
       // for each event of the eventsArray...  
       for (let i = 0; i < eventsArray.length; ++i){
         console.log(eventsArray[i]);
-        console.log(panelColors[i]);
+        // console.log(panelColors[i]);
         // create conditions
         
         // generate a card placeholder Div with relevant attributes,
@@ -172,17 +172,20 @@ function getEvents()
         // generate a card div of class card
         let card = $("<div>").attr("class", "card");
         // add color corresponding to the panelColors array
-        card.addClass(panelColors[i]);
+        card.addClass(panelColors[i] + " darken-4");
+        // darken these colors
+        // card.addClass("darken-4");
 
         cardPlace.append(card);
         // we generate a div of class card-content and white-text
         let cardContent = $("<div>").attr("class", "card-content white-text");
         card.append(cardContent);        
         // next we generate our span with class card-title
-        let spanTitle = $("<span>").attr("class", "card-title").text("Working title");
+        let spanTitle = $("<span>").attr("class", "card-title").text(eventsArray[i].title);
         cardContent.append(spanTitle);
         // we append a paragraph to this title
-        let spanParagraph = $("<p>").text("Working paragraph");
+        let spanParagraph = $("<p>").attr("class", "spanParagraph").text(eventsArray[i].venue_name);
+        spanParagraph.append("<p>" + eventsArray[i].city_name + "</p>");
         spanTitle.append(spanParagraph);
 
         // we generate a .card-action Div 
@@ -190,29 +193,18 @@ function getEvents()
         // we generate a link and append to cardAction
         let cardLink = $("<a>").attr({
           "href": eventsArray[i].url,
-          target: "_blank"}).text("Link to the event!");;
+          target: "_blank"}).text("Learn more");;
 
         // we append cardAction to card and cardLink to cardAction
         card.append(cardAction);
         cardAction.append(cardLink);
 
         cardRow.append(cardPlace);
-
-        // // we create some cool headings and paragraphs
-        // // the event title
-        // let panelTitle = $("<h1>" + eventsArray[i].title + "</h1>" );
-        // // the event city
-        // let panelText = $("<h2>" + eventsArray[i].city_name + "</h2>");
-        // // the event start time...
-        // let eventStartTime = $("<h3> Starts at: " + eventsArray[i].start_time.substring(11) + "</h3>");
-
       }           
     });
 }
 
 var userCoord = ({lat: 35.7796, lng: -78.6382});
-
-
 
 function initMap() {
   userCoord = userCoord;
