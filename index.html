@@ -3,33 +3,37 @@
 
 <head>
 
- <meta charset="UTF-8">
- <title>w.e.Plan</title>
+  <meta charset="UTF-8">
+  <title>w.e.Plan</title>
 
- <!-- CSS -->
- <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- <link href="assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
- <link rel="stylesheet" type="text/css" href="assets/css/style.css">
- 
- <!-- jQuery -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
- <!-- Moment.js CDN via jsdelivr -->
- <script src="https://cdn.jsdelivr.net/npm/moment@2.20.1/moment.min.js"></script>
- <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
- <style>
+  <!-- Moment.js CDN via jsdelivr -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.20.1/moment.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
     /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
+
     #map {
       height: 50%;
       width: 50%;
       margin-left: auto;
       margin-right: auto;
     }
+
     /* Optional: Makes the sample page fill the window. */
-    html, body {
+
+    html,
+    body {
       height: 100%;
       margin: 0;
       padding: 0;
@@ -41,17 +45,22 @@
   <div id="globalContainer">
     <!-- my navbar lives here -->
     <div id="navBar" class="block blue">
-    
+
       <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo center">w.e.Plan</a>
+        <div class="nav-wrapper container">
+          <a id="logo-container" href="#" class="brand-logo center">w.e.Plan</a>
           <ul class="right hide-on-med-and-down">
             <!-- <li><a href="#">Navbar Link</a></li> -->
           </ul>
-    
+
           <ul id="nav-mobile" class="side-nav">
-            <li><a href="#">Navbar Link</a></li>
+            <li>
+              <a href="#">Navbar Link</a>
+            </li>
           </ul>
-          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+          <a href="#" data-activates="nav-mobile" class="button-collapse">
+            <i class="material-icons">menu</i>
+          </a>
         </div>
       </nav>
     </div>
@@ -68,34 +77,42 @@
         <!--   a brief description of how the app works lives here   -->
         <div class="row center">
           <div class="col s12 m2"></div>
-              
+
           <div class="col s12 m4">
             <div class="icon-block">
-              <h2 class="center light-blue-text"><i class="material-icons">location_on</i></h2>
+              <h2 class="center light-blue-text">
+                <i class="material-icons">location_on</i>
+              </h2>
               <h5 class="center">We find local events</h5>
 
-              <p class="light">When you submit your zipcode, we request event data from the Eventful API and provide you with a list of the 10 most popular venues within a 25 mile radius. In a few seconds, scroll down and Learn more by visiting each event's Eventful site.</p>
+              <p class="light">When you submit your zipcode, we request event data from the Eventful API and provide you with a list of the
+                10 most popular venues within a 25 mile radius. In a few seconds, scroll down and Learn more by visiting
+                each event's Eventful site.</p>
             </div>
           </div>
 
           <div class="col s12 m4">
             <div class="icon-block">
-              <h2 class="center light-blue-text"><i class="material-icons">local_pizza</i></h2>
+              <h2 class="center light-blue-text">
+                <i class="material-icons">local_pizza</i>
+              </h2>
               <h5 class="center">We find food nearby</h5>
 
-              <p class="light">We use the same zipcode you provide to give you a map with nearby restaurants by requesting specific data from the Google Maps Places API. Click on the placemarkers for restaurant names. Drop the little Street View dude nearby! It works!</p>
+              <p class="light">We use the same zipcode you provide to give you a map with nearby restaurants by requesting specific data from
+                the Google Maps Places API. Click on the placemarkers for restaurant names. Drop the little Street View dude
+                nearby! It works!</p>
             </div>
           </div>
 
           <div class="col s12 m2"></div>
         </div>
         <!-- form row -->
-        <div class= "row center" id="formDiv">
-          <form class= "col s12">
+        <div class="row center" id="formDiv">
+          <form class="col s12">
             <div class="col s12">
               <!-- my inline input field lives here! -->
               <div class="input-field inline">
-                <input placeholder="e.g. 27519" type="text" class="validate" id="userInput">
+                <input placeholder="e.g. 27519" type="text" class="validate" id="user-input">
                 <label for="zipcode">Enter your zipcode below!</label>
               </div>
             </div>
@@ -107,50 +124,60 @@
         </div>
       </div>
     </div>
-    <div class="row" id="#card-div">
+    <div class="row" id="card-div">
       <div class="col s12 m2"></div>
       <div class="col s12 m8" id="cardColumn">
         <div class="row" id="cardRow"></div>
       </div>
     </div>
-  </div>  
-<div id="map"></div>
+  </div>
 
-<footer class="page-footer orange">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">w.e.Plan</h5>
-        <p class="grey-text text-lighten-4">We're a group of up n' coming web developers. We value and appreciate your support in this and future projects.</p>
-        
-      </div>
-      <div class="col l3 s12">
-        <h5 class="white-text">Connect</h5>
-        <ul>
-          <li><a class="white-text" href="https://github.com/a-vargasmarte" target="_blank">Alberto Vargas</a></li>
-          <li><a class="white-text" href="https://github.com/dvhunt7" target="_blank">Destin Hunt</a></li>
-          <li><a class="white-text" href="https://github.com/afrelier" target="_blank">Alejandro Frelier</a></li>
-          <li><a class="white-text" href="https://github.com/agabriel93" target="_blank">Alexander Gabriel</a></li>
-        </ul>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">w.e.Plan</h5>
+          <p class="grey-text text-lighten-4">We're a group of up n' coming web developers. We value and appreciate your support in this and future projects.</p>
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li>
+              <a class="white-text" href="https://github.com/a-vargasmarte" target="_blank">Alberto Vargas</a>
+            </li>
+            <li>
+              <a class="white-text" href="https://github.com/dvhunt7" target="_blank">Destin Hunt</a>
+            </li>
+            <li>
+              <a class="white-text" href="https://github.com/afrelier" target="_blank">Alejandro Frelier</a>
+            </li>
+            <li>
+              <a class="white-text" href="https://github.com/agabriel93" target="_blank">Alexander Gabriel</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="footer-copyright">
+    <div class="footer-copyright">
       <a class="white-text" href="https://github.com/a-vargasmarte/Project-1" target="_blank" id="project-github">Project Github Page</a>
-  </div>
-</footer>
+    </div>
+  </footer>
 
-<!--  Scripts-->
-<!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="starter-template/js/materialize.min.js"></script>
-<script src="starter-template/js/init.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-<script type="text/javascript" src="assets/javascript/app.js"></script>
-<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiGSct3XAQ3aHEzuZbqBrpz5OBn4mDIgE&libraries=places&callback=initMap" async defer></script>
+  <!--  Scripts-->
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="starter-template/js/materialize.min.js"></script>
+  <script src="starter-template/js/init.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
+  <script type="text/javascript" src="https://api.eventful.com/js/api"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiGSct3XAQ3aHEzuZbqBrpz5OBn4mDIgE&libraries=places&callback=initMap"
+    defer></script>
 
- 
+
 
 </body>
+
 </html>
