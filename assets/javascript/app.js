@@ -68,7 +68,10 @@ let eventArgs = new EventfulArguments();
 // console.log(test.where());
 
 // when the user hits submit... 
-$("#submit-button").on("click", function () {
+$("form").on("submit", function () {
+  // prevent default behavior
+  event.preventDefault();
+
   // capture user input and store into where property of eventArgs
   eventArgs.where = $("#user-input").val().trim();
 
