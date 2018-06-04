@@ -40,9 +40,6 @@ $("#submit-button").click(function (event) {
 //Eventful Info
 
 // $(document).ready(function(){
-
-let map;
-let infowindow;
 let eventsArray;
 let panelRefs = ["#one!", "#two!", "#three!", "#four!", "#five!", "#six!", "#seven!", "#eight!", "#nine!", "#ten!"];
 let panelColors = ["teal", "purple", "blue", "green", "deep-purple", "light-blue", "blue-grey darken-4", "pink", "indigo", "cyan"];
@@ -75,11 +72,40 @@ $("form").on("submit", function () {
   // capture user input and store into where property of eventArgs
   eventArgs.where = $("#user-input").val().trim();
 
+  // geocode user input
+  initGeocode();
+
+
   // we empty the #user-input element
   $("#user-input").val("");
   // and we get our events
   getEvents();
 });
+
+var lat;
+var lng;
+function initGeocode() {
+
+  var address = eventArgs.where;
+
+  var geocoder = new google.maps.Geocoder();
+
+  geocoder.geocode({ 'address': address }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      // console.log(results[0].geometry.location.lat());
+      lat = results[0].geometry.location.lat();
+      lng = results[0].geometry.location.lng();
+      // console.log(lat);
+    }
+    else {
+      console.log("Geocode was not successful for the following reason: " + status);
+    }
+  });
+
+
+}
+
+
 
 function getEvents() {
   var oArgs = eventArgs;
@@ -99,7 +125,7 @@ function getEvents() {
     // these will hold event names, times, and other relevant info
     setTimeout(cardLoop, 4500);
 
-    // setTimeout(embedMap, 5000);
+    setTimeout(embedMap, 5000);
   });
 }
 
@@ -159,6 +185,7 @@ function cardSpace() {
 
   // we dynamically generate a card div with class row
   let cardDiv = $("<div>").attr("class", "row card-row");
+  // we dynamically generate an empty column and append to cardDiv
   // we append a div of class "col s12 m2"
   emptyColumn = $("<div>").attr("class", "col s12 m2");
   cardDiv.append(emptyColumn);
@@ -226,10 +253,19 @@ function cardLoop() {
 
 
 // declare a function that will embed a google map html element on our site
+// var map;
+// var infowindow;
+
 function embedMap() {
+  console.log('hey im here');
+
+  // console.log(lat, lng);
+  var map;
+  var infowindow;
 
   function initMap() {
-    let pyrmont = { lat: -33.867, lng: 151.195 };
+
+    var pyrmont = { lat: lat, lng: lng };
 
     map = new google.maps.Map(document.getElementById('map'), {
       center: pyrmont,
@@ -238,53 +274,41 @@ function embedMap() {
 
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch({
-      location: pyrmont,
-      radius: 500,
-      type: ['restaurant']
-    }, callback);
+
+    function nearbySearch() {
+      service.nearbySearch({
+        location: pyrmont,
+        radius: 10000,
+        type: ['restaurant']
+      }, callback);
+    }
+
+    nearbySearch();
+
   }
 
-  // function callback(results, status) {
-  //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-  //     for (var i = 0; i < results.length; i++) {
-  //       createMarker(results[i]);
-  //     }
-  //   }
-  // }
+  function callback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        createMarker(results[i]);
+      }
+    }
+  }
 
-  // function createMarker(place) {
-  //   var placeLoc = place.geometry.location;
-  //   var marker = new google.maps.Marker({
-  //     map: map,
-  //     position: place.geometry.location
-  //   });
+  function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
 
-  //   google.maps.event.addListener(marker, 'click', function () {
-  //     infowindow.setContent(place.name);
-  //     infowindow.open(map, this);
-  //   });
-  // }
-  // create a row div with relevant attributes
-  let mapRow = $("<div>").attr({
-    "class": "row",
-    "id": "map-div"
-  });
-
-  // create an empty col of size 4 in medium screens
-  let emptyCol = $("<div>").attr("class", "col s12 m4");
-
-  // create a div that will contain the google map
-  let mapDiv = $("div").attr({
-    "id": "map"
-  });
-
-  // mapRow.append(emptyCol);
-  // mapRow.append(mapDiv);
-
-  // $("#globalContainer").append(mapDiv);
-  // initMap();
-
-
-
+    google.maps.event.addListener(marker, 'click', function () {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    });
+  }
+  initMap();
 }
+// const embedMap = () => {
+//   google.maps.event.addDomListener(window, 'load', initMap);
+// }
