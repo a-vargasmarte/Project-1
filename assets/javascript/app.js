@@ -1,41 +1,19 @@
 // Initialize Firebase
 console.log('js file started');
 
-// var config = {
-//   apiKey: "AIzaSyAM-grjDpptQv1WMhQ_QfhAtfAQs8lkvkg",
-//   authDomain: "nightout-2d0c1.firebaseapp.com",
-//   databaseURL: "https://nightout-2d0c1.firebaseio.com",
-//   projectId: "nightout-2d0c1",
-//   storageBucket: "nightout-2d0c1.appspot.com",
-//   messagingSenderId: "451771085344"
-// };
+// Initialize Firebase
+const config = {
+  apiKey: "AIzaSyACD_rR_gRwBgxt6qrrPPxk9Douw_STyPU",
+  authDomain: "weplan-bea0b.firebaseapp.com",
+  databaseURL: "https://weplan-bea0b.firebaseio.com",
+  projectId: "weplan-bea0b",
+  storageBucket: "weplan-bea0b.appspot.com",
+  messagingSenderId: "117324437132"
+};
 
-// firebase.initializeApp(config);
+firebase.initializeApp(config);
 
-// const dbRef = firebase.database().ref("Logger/eventInfo");
-
-// we create an on click event for when user submits form
-$("#submit-button").click(function (event) {
-  event.preventDefault();
-
-  // // get zipcode input from user and store in search property of weatherOptions
-  // weatherOptions.search = $("#userInput").val().trim();
-
-  // // then we use package to find weather info for user's zipcode
-  // weather.find(weatherOptions, function (err, result) {
-  //   // if there is an error log it
-  //   if (err) {
-  //     console.log(err);
-  //   }
-  //   JSON.stringify(result, null, 2);
-  //   console.log(result);
-  // });
-
-  // getEvents();
-
-});
-
-
+let database = firebase.database().ref();
 
 //Eventful Info
 
@@ -72,6 +50,11 @@ $("form").on("submit", function () {
   // capture user input and store into where property of eventArgs
   eventArgs.where = $("#user-input").val().trim();
 
+  // we use the 'set' firebase method to store the user input in the database
+  database.set({
+    zip: eventArgs.where
+  })
+
   // geocode user input
   initGeocode();
 
@@ -81,6 +64,17 @@ $("form").on("submit", function () {
   // and we get our events
   getEvents();
 });
+
+database.on("value", function (snapshot) {
+  console.log(snapshot.val().zip);
+  // assign the value of the most recent zipcode to the
+  // #user-input html element
+  $("#last-search").html(snapshot.val().zip)
+  // If any errors are experienced, log them to console.
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
+
 
 var lat;
 var lng;
@@ -269,7 +263,7 @@ function embedMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
       center: pyrmont,
-      zoom: 15
+      zoom: 12
     });
 
     infowindow = new google.maps.InfoWindow();
@@ -278,7 +272,7 @@ function embedMap() {
     function nearbySearch() {
       service.nearbySearch({
         location: pyrmont,
-        radius: 10000,
+        radius: 20000,
         type: ['restaurant']
       }, callback);
     }
